@@ -180,8 +180,7 @@ void search_stream(FILE *stream, const char *path) {
 
     line_len = getline(&line, &line_cap, stream);
     if (line_len > 0) {
-      strncpy(opts.query, line, line_len-1);
-      return;
+      ag_strndup(line, line_len-1);
     }
 
     for (i = 2; (line_len = getline(&line, &line_cap, stream)) > 0; i++) {
