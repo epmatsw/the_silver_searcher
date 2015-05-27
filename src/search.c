@@ -178,7 +178,12 @@ void search_stream(FILE *stream, const char *path) {
     size_t line_cap = 0;
     size_t i;
 
-    for (i = 1; (line_len = getline(&line, &line_cap, stream)) > 0; i++) {
+    line_len = getline(&line, &line_cap, stream);
+    if (line_len > 0) {
+      strncpy(opts.query, line, line_len-1);
+    }
+
+    for (i = 2; (line_len = getline(&line, &line_cap, stream)) > 0; i++) {
         opts.stream_line_num = i;
         search_buf(line, line_len, path);
     }
